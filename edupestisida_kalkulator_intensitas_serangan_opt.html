@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduPestisida - Panduan Bijak & Kalkulator Intensitas Serangan OPT / DPI</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 340px;
+            }
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #10b981;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased leading-relaxed">
+
+    <!-- Sticky Navigation -->
+    <nav class="sticky top-0 z-50 bg-emerald-900 text-white shadow-lg border-b border-emerald-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <span class="text-2xl">🌾</span>
+                    <span class="font-bold text-xl tracking-tight text-emerald-300">EduPestisida & OPT</span>
+                </div>
+                <div class="hidden lg:flex space-x-4 text-sm font-medium">
+                    <a href="#pengenalan" class="px-3 py-2 rounded-md hover:bg-emerald-800 transition">1. Dasar Pestisida</a>
+                    <a href="#6tepat" class="px-3 py-2 rounded-md hover:bg-emerald-800 transition">2. Aturan 6 Tepat</a>
+                    <a href="#keselamatan" class="px-3 py-2 rounded-md hover:bg-emerald-800 transition">3. Keselamatan & APD</a>
+                    <a href="#kalkulator-dosis" class="px-3 py-2 rounded-md hover:bg-emerald-800 transition">4. Dosis Semprot</a>
+                    <a href="#kalkulator-opt" class="px-3 py-2 rounded-md bg-amber-500 text-slate-900 font-bold hover:bg-amber-400 transition">5. Hitung OPT & DPI</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Header -->
+    <header class="bg-gradient-to-r from-emerald-800 via-teal-700 to-emerald-900 text-white py-12 px-4 shadow-inner">
+        <div class="max-w-5xl mx-auto text-center space-y-4">
+            <div class="inline-block bg-emerald-700 text-emerald-200 text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full border border-emerald-500 mb-2">
+                Infografis Edukasi & Kalkulator Lapangan PHT (Pengendalian Hama Terpadu)
+            </div>
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight">
+                Ukur Dulu, Baru Semprot! <br><span class="text-amber-400">Kalkulator Intensitas Serangan OPT & DPI</span>
+            </h1>
+            <p class="text-emerald-100 max-w-3xl mx-auto text-base sm:text-lg">
+                Penggunaan pestisida hanya dibolehkan jika populasi atau tingkat kerusakan hama telah melebihi Ambang Pengendalian. Hitung intensitas kerusakan tanaman (mutlak/non-mutlak) dan luas serangan (LKS/LTS) dengan akurat.
+            </p>
+            <div class="pt-4 flex flex-wrap justify-center gap-4 text-sm">
+                <div class="bg-emerald-900/60 backdrop-blur px-4 py-2 rounded-lg border border-emerald-600">
+                    <span class="text-amber-400 font-bold">📊 Intensitas Serangan</span>
+                </div>
+                <div class="bg-emerald-900/60 backdrop-blur px-4 py-2 rounded-lg border border-emerald-600">
+                    <span class="text-amber-400 font-bold">🗺️ Luas Serangan (LKS)</span>
+                </div>
+                <div class="bg-emerald-900/60 backdrop-blur px-4 py-2 rounded-lg border border-emerald-600">
+                    <span class="text-amber-400 font-bold">⚠️ Ambang Ekonomi PHT</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Key Metrics Highlight Bar -->
+    <section class="max-w-7xl mx-auto px-4 -mt-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="bg-white p-5 rounded-xl shadow-md border-l-4 border-emerald-600 flex items-center space-x-4">
+                <div class="text-3xl bg-emerald-100 p-3 rounded-lg">🔍</div>
+                <div>
+                    <div class="text-2xl font-bold text-emerald-900">Ambang PHT</div>
+                    <div class="text-xs text-slate-500">Semprot hanya jika melebihi batas bahaya</div>
+                </div>
+            </div>
+            <div class="bg-white p-5 rounded-xl shadow-md border-l-4 border-amber-500 flex items-center space-x-4">
+                <div class="text-3xl bg-amber-100 p-3 rounded-lg">📐</div>
+                <div>
+                    <div class="text-2xl font-bold text-amber-900">2 Formula</div>
+                    <div class="text-xs text-slate-500">Serangan Mutlak & Non-Mutlak (Berjenjang)</div>
+                </div>
+            </div>
+            <div class="bg-white p-5 rounded-xl shadow-md border-l-4 border-red-500 flex items-center space-x-4">
+                <div class="text-3xl bg-red-100 p-3 rounded-lg">🌾</div>
+                <div>
+                    <div class="text-2xl font-bold text-red-900">> 85% Puso</div>
+                    <div class="text-xs text-slate-500">Batas kerusakan kategori tanaman puso</div>
+                </div>
+            </div>
+            <div class="bg-white p-5 rounded-xl shadow-md border-l-4 border-teal-600 flex items-center space-x-4">
+                <div class="text-3xl bg-teal-100 p-3 rounded-lg">🧪</div>
+                <div>
+                    <div class="text-2xl font-bold text-teal-900">6 Tepat</div>
+                    <div class="text-xs text-slate-500">Aplikasi aman & efisien biaya</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 py-10 space-y-16">
+
+        <!-- SECTION 5 (MAIN FEATURE): KALKULATOR LUAS & INTENSITAS SERANGAN OPT / DPI -->
+        <section id="kalkulator-opt" class="scroll-mt-20">
+            <div class="border-b border-slate-200 pb-4 mb-8">
+                <div class="inline-block bg-amber-100 text-amber-900 text-xs font-bold px-3 py-1 rounded-md mb-2">
+                    MODUL INFOGRAFIS UTAMA & ALAT UKUR LAPANGAN
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Kalkulator Intensitas & Luas Serangan OPT / DPI</h2>
+                <p class="text-slate-600 mt-2">
+                    Gunakan alat bantu ini untuk mengkalkulasi tingkat kerusakan tanaman akibat serangan Organisme Pengganggu Tumbuhan (OPT) seperti ulat, wereng, atau penyakit hawar, serta Dampak Perubahan Iklim (DPI) seperti kekeringan dan banjir.
+                </p>
+            </div>
+
+            <!-- Conceptual Cards: Standard Categories -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-xl text-center">
+                    <span class="text-xs font-bold text-emerald-800 uppercase">Kategori Ringan</span>
+                    <div class="text-xl font-extrabold text-emerald-900 my-1">0% - 25%</div>
+                    <p class="text-[11px] text-emerald-700">Kerusakan minor. Cukup pengamatan & agen hayati.</p>
+                </div>
+                <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl text-center">
+                    <span class="text-xs font-bold text-amber-800 uppercase">Kategori Sedang</span>
+                    <div class="text-xl font-extrabold text-amber-900 my-1">> 25% - 50%</div>
+                    <p class="text-[11px] text-amber-700">Waspada! Hambat penyebaran & siapkan tindakan PHT.</p>
+                </div>
+                <div class="bg-orange-50 border border-orange-200 p-4 rounded-xl text-center">
+                    <span class="text-xs font-bold text-orange-800 uppercase">Kategori Berat</span>
+                    <div class="text-xl font-extrabold text-orange-900 my-1">> 50% - 85%</div>
+                    <p class="text-[11px] text-orange-700">Perlunya penanganan darurat sesuai ambang ekonomi.</p>
+                </div>
+                <div class="bg-red-50 border border-red-200 p-4 rounded-xl text-center">
+                    <span class="text-xs font-bold text-red-800 uppercase">Kategori Puso</span>
+                    <div class="text-xl font-extrabold text-red-900 my-1">> 85% - 100%</div>
+                    <p class="text-[11px] text-red-700">Gagal panen total / kehilangan hasil penuh.</p>
+                </div>
+            </div>
+
+            <!-- Tab Buttons for Formulas -->
+            <div class="flex flex-wrap gap-2 border-b border-slate-200 pb-3 mb-6">
+                <button onclick="switchOptTab('nonmutlak')" id="tab-btn-nonmutlak" class="px-4 py-2 text-sm font-bold rounded-lg bg-emerald-700 text-white transition shadow-sm">
+                    1. Serangan Non-Mutlak (Berjenjang / Kuantitatif)
+                </button>
+                <button onclick="switchOptTab('mutlak')" id="tab-btn-mutlak" class="px-4 py-2 text-sm font-bold rounded-lg bg-white border border-slate-300 text-slate-700 hover:bg-slate-100 transition">
+                    2. Serangan Mutlak (Rusak Total / Hilang Tanaman)
+                </button>
+                <button onclick="switchOptTab('luas')" id="tab-btn-luas" class="px-4 py-2 text-sm font-bold rounded-lg bg-white border border-slate-300 text-slate-700 hover:bg-slate-100 transition">
+                    3. Rekapitulasi Luas Serangan Lahan (LKS / LTS)
+                </button>
+            </div>
+
+            <!-- TAB 1: INTENSITAS SERANGAN NON-MUTLAK -->
+            <div id="tab-content-nonmutlak" class="space-y-8">
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-100">
+                    <div class="mb-4">
+                        <h3 class="text-lg font-bold text-slate-900">Formula Intensitas Serangan Non-Mutlak (Skala Berjenjang)</h3>
+                        <p class="text-xs text-slate-600 mt-1">
+                            Digunakan untuk OPT dengan gejala kerusakan parsial pada daun/batang (misal: penyakit penggerek daun, bercak daun, atau serangan tikus parsial).
+                        </p>
+                        <div class="bg-slate-100 p-3 rounded-md mt-2 text-xs font-mono text-slate-800">
+                            <strong>Rumus:</strong> I = [ Σ (n × v) / (N × V) ] × 100%
+                            <br><span class="text-slate-600 text-[11px]">Keterangan: n = jumlah sampel per skala, v = nilai skala kerusakan, N = total sampel, V = skala tertinggi (5).</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                        <!-- Inputs -->
+                        <div class="lg:col-span-7 space-y-3 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <h4 class="font-bold text-sm text-slate-800 border-b pb-2">Masukkan Jumlah Rumpun/Tanaman Sampel per Skala Kerusakan:</h4>
+                            
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700">Skala 0 (Sehat: 0%)</label>
+                                    <input type="number" id="scale0" value="20" min="0" class="w-full px-2 py-1.5 border rounded text-sm focus:ring-2 focus:ring-emerald-500" oninput="calculateNonMutlak()">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700">Skala 1 (>0% - 20%)</label>
+                                    <input type="number" id="scale1" value="15" min="0" class="w-full px-2 py-1.5 border rounded text-sm focus:ring-2 focus:ring-emerald-500" oninput="calculateNonMutlak()">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700">Skala 2 (>20% - 40%)</label>
+                                    <input type="number" id="scale2" value="8" min="0" class="w-full px-2 py-1.5 border rounded text-sm focus:ring-2 focus:ring-emerald-500" oninput="calculateNonMutlak()">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700">Skala 3 (>40% - 60%)</label>
+                                    <input type="number" id="scale3" value="4" min="0" class="w-full px-2 py-1.5 border rounded text-sm focus:ring-2 focus:ring-emerald-500" oninput="calculateNonMutlak()">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700">Skala 4 (>60% - 80%)</label>
+                                    <input type="number" id="scale4" value="2" min="0" class="w-full px-2 py-1.5 border rounded text-sm focus:ring-2 focus:ring-emerald-500" oninput="calculateNonMutlak()">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700">Skala 5 (>80% - 100%)</label>
+                                    <input type="number" id="scale5" value="1" min="0" class="w-full px-2 py-1.5 border rounded text-sm focus:ring-2 focus:ring-emerald-500" oninput="calculateNonMutlak()">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Results Card -->
+                        <div class="lg:col-span-5 bg-gradient-to-br from-slate-900 to-emerald-950 text-white p-5 rounded-xl shadow-lg flex flex-col justify-between">
+                            <div>
+                                <span class="text-xs text-emerald-300 font-bold uppercase tracking-wider">Hasil Kalkulasi Non-Mutlak</span>
+                                <div class="mt-2 flex items-baseline space-x-2">
+                                    <span id="nonmutlak-result" class="text-4xl font-extrabold text-amber-400">22.4%</span>
+                                    <span id="nonmutlak-badge" class="px-2 py-1 text-xs font-bold rounded bg-emerald-600 text-white">RINGAN</span>
+                                </div>
+                                <p id="nonmutlak-desc" class="text-xs text-slate-300 mt-3 leading-relaxed">
+                                    Tingkat kerusakan tanaman di bawah 25%. Belum memerlukan penyemprotan bahan kimia secara masif. Utamakan pengamatan berkala & agens hayati.
+                                </p>
+                            </div>
+
+                            <div class="mt-4 pt-3 border-t border-slate-700 text-xs text-emerald-200">
+                                Total Sampel Diamati: <strong id="nonmutlak-total-samples" class="text-white">50 Rumpun</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart Visualizing Sample Distribution -->
+                    <div class="mt-6 pt-6 border-t border-slate-200">
+                        <h4 class="text-sm font-bold text-slate-800 mb-2">Visualisasi Sebaran Sampel & Skala Kerusakan</h4>
+                        <div class="chart-container">
+                            <canvas id="optSampleChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: INTENSITAS SERANGAN MUTLAK -->
+            <div id="tab-content-mutlak" class="hidden space-y-8">
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-100">
+                    <div class="mb-4">
+                        <h3 class="text-lg font-bold text-slate-900">Formula Intensitas Serangan Mutlak (Rusak Total / Mati)</h3>
+                        <p class="text-xs text-slate-600 mt-1">
+                            Digunakan jika tanaman terserang mati total/puso atau organ terserang tidak berfungsi sama sekali (misal: penggerek batang/beluk, atau puso banjir).
+                        </p>
+                        <div class="bg-slate-100 p-3 rounded-md mt-2 text-xs font-mono text-slate-800">
+                            <strong>Rumus:</strong> I = (a / N) × 100%
+                            <br><span class="text-slate-600 text-[11px]">Keterangan: a = jumlah tanaman/organ rusak mutlak, N = total sampel tanaman diamati.</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                        <div class="space-y-4 bg-slate-50 p-5 rounded-xl border border-slate-200">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Jumlah Tanaman Rusak Mutlak / Mati (a)</label>
+                                <input type="number" id="mutlak-a" value="12" min="0" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-500" oninput="calculateMutlak()">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Total Tanaman Sampel Diamati (N)</label>
+                                <input type="number" id="mutlak-N" value="50" min="1" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-500" oninput="calculateMutlak()">
+                            </div>
+                        </div>
+
+                        <!-- Result Display -->
+                        <div class="bg-emerald-900 text-white p-6 rounded-xl shadow-lg flex flex-col justify-between">
+                            <div>
+                                <span class="text-xs text-emerald-300 font-bold uppercase tracking-wider">Hasil Intensitas Mutlak</span>
+                                <div class="mt-2 flex items-baseline space-x-2">
+                                    <span id="mutlak-result" class="text-4xl font-extrabold text-amber-400">24.0%</span>
+                                    <span id="mutlak-badge" class="px-2 py-1 text-xs font-bold rounded bg-emerald-600 text-white">RINGAN</span>
+                                </div>
+                                <p id="mutlak-desc" class="text-xs text-slate-200 mt-3 leading-relaxed">
+                                    Tingkat kerusakan mutlak tergolong ringan. Pantau terus perkembangan populasi di lapangan.
+                                </p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-emerald-800 text-xs text-emerald-200">
+                                Rasio Tanaman Sehat: <strong id="mutlak-healthy" class="text-white">38 dari 50 Tanaman (76%)</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: REKAPITULASI LUAS SERANGAN (LKS/LTS) -->
+            <div id="tab-content-luas" class="hidden space-y-8">
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-100">
+                    <div class="mb-4">
+                        <h3 class="text-lg font-bold text-slate-900">Kalkulator Luas Keadaan Serangan (LKS) & Potensi Terancam</h3>
+                        <p class="text-xs text-slate-600 mt-1">
+                            Hitung total akumulasi luas area terserang berdasarkan tingkatan kategori untuk tingkat desa, kecamatan, atau luas hamparan kelompok tani.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="space-y-3 bg-slate-50 p-5 rounded-xl border border-slate-200">
+                            <h4 class="font-bold text-sm text-slate-800 border-b pb-2">Input Luas Area per Kategori (Hektar):</h4>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700">Luas Hamparan Total (Ha)</label>
+                                <input type="number" id="area-total" value="100" min="1" class="w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-emerald-500" oninput="calculateLuas()">
+                            </div>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-xs font-semibold text-emerald-700">Ringan (Ha)</label>
+                                    <input type="number" id="area-ringan" value="15" min="0" class="w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-emerald-500" oninput="calculateLuas()">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-amber-700">Sedang (Ha)</label>
+                                    <input type="number" id="area-sedang" value="8" min="0" class="w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-emerald-500" oninput="calculateLuas()">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-orange-700">Berat (Ha)</label>
+                                    <input type="number" id="area-berat" value="3" min="0" class="w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-emerald-500" oninput="calculateLuas()">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-red-700">Puso / Mati (Ha)</label>
+                                    <input type="number" id="area-puso" value="1" min="0" class="w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-emerald-500" oninput="calculateLuas()">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Results & Summary -->
+                        <div class="bg-slate-900 text-white p-6 rounded-xl shadow-lg flex flex-col justify-between">
+                            <div>
+                                <h4 class="text-xs text-amber-400 font-bold uppercase tracking-wider border-b border-slate-800 pb-2">Ringkasan Luas Keadaan Serangan (LKS)</h4>
+                                
+                                <div class="mt-4 space-y-3">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-xs text-slate-300">Total Luas Terserang (LKS):</span>
+                                        <span id="res-lks-total" class="text-2xl font-bold text-amber-400">27.0 Ha</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-xs text-slate-300">Persentase Terserang Lahan:</span>
+                                        <span id="res-lks-percent" class="text-lg font-bold text-emerald-400">27.0%</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-xs text-slate-300">Luas Bebas Serangan (Sehat):</span>
+                                        <span id="res-lks-free" class="text-lg font-bold text-white">73.0 Ha</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 bg-slate-800 p-3 rounded-lg border border-slate-700 text-xs text-slate-300">
+                                <strong>Rekomendasi Tindakan Lahan:</strong> <span id="res-lks-advice" class="text-emerald-300">Fokus isolasi pada area sedang dan berat agar 73.0 Ha lahan bebas tidak tertular.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 1: DASAR PESTISIDA -->
+        <section id="pengenalan" class="scroll-mt-20">
+            <div class="border-b border-slate-200 pb-4 mb-8">
+                <div class="inline-block bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-md mb-2">
+                    MODUL INFOGRAFIS 1
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Kenali Musuhmu, Pilih Senjatamu!</h2>
+                <p class="text-slate-600 mt-2">
+                    Setiap jenis gangguan pada tanaman memerlukan bahan aktif yang berbeda. Menggunakan jenis pestisida yang salah hanya akan menghabiskan uang, merusak keanekaragaman hayati, dan memicu resistensi hama tanpa menyelesaikan masalah.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+                <!-- Visual Breakdown & Interactive Selector -->
+                <div class="bg-white rounded-xl shadow-md p-6 border border-slate-100 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-lg font-bold text-emerald-900 mb-4 flex items-center">
+                            <span class="mr-2">🧪</span> Klasifikasi Jenis Pestisida Berdasarkan Sasaran
+                        </h3>
+                        <p class="text-sm text-slate-600 mb-6">
+                            Klik pada jenis pestisida di bawah untuk mempelajari sasaran spesifik dan contoh pengunaannya:
+                        </p>
+                        
+                        <!-- Interactive Category Grid -->
+                        <div class="grid grid-cols-2 gap-3 mb-6">
+                            <button onclick="showPesticideDetail('insektisida')" id="btn-insektisida" class="pest-btn p-3 rounded-lg border-2 border-emerald-600 bg-emerald-50 text-emerald-900 font-semibold text-left transition hover:shadow-md">
+                                <div class="text-xl">🐛 Insektisida</div>
+                                <div class="text-xs text-emerald-700 mt-1">Khusus Serangga</div>
+                            </button>
+                            <button onclick="showPesticideDetail('fungisida')" id="btn-fungisida" class="pest-btn p-3 rounded-lg border-2 border-slate-200 bg-white text-slate-700 font-semibold text-left transition hover:shadow-md">
+                                <div class="text-xl">🍄 Fungisida</div>
+                                <div class="text-xs text-slate-500 mt-1">Khusus Jamur</div>
+                            </button>
+                            <button onclick="showPesticideDetail('herbisida')" id="btn-herbisida" class="pest-btn p-3 rounded-lg border-2 border-slate-200 bg-white text-slate-700 font-semibold text-left transition hover:shadow-md">
+                                <div class="text-xl">🌿 Herbisida</div>
+                                <div class="text-xs text-slate-500 mt-1">Khusus Gulma</div>
+                            </button>
+                            <button onclick="showPesticideDetail('bakterisida')" id="btn-bakterisida" class="pest-btn p-3 rounded-lg border-2 border-slate-200 bg-white text-slate-700 font-semibold text-left transition hover:shadow-md">
+                                <div class="text-xl">🧫 Bakterisida</div>
+                                <div class="text-xs text-slate-500 mt-1">Khusus Bakteri</div>
+                            </button>
+                        </div>
+
+                        <!-- Dynamic Detail Display -->
+                        <div id="pesticide-detail-box" class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                            <h4 id="detail-title" class="font-bold text-emerald-800 text-base">Insektisida</h4>
+                            <p id="detail-desc" class="text-sm text-slate-700 mt-1">
+                                Formulasi khusus untuk mengendalikan hama golongan serangga seperti ulat grayak, kutu daun, wereng hijau, dan penggerek batang.
+                            </p>
+                            <div class="mt-3 pt-3 border-t border-slate-200 flex justify-between text-xs font-medium text-slate-600">
+                                <span>Wujud Sasaran: Ulat, Kutu, Wereng</span>
+                                <span class="text-emerald-700 font-bold">Tindakan: Jangan dicampur fungisida sembarangan!</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg">
+                        <div class="font-bold text-amber-900 text-sm">💡 Wajib Membaca Label Kemasan!</div>
+                        <div class="text-xs text-amber-800 mt-1">
+                            Label adalah buku petunjuk resmi. Selalu periksa bahan aktif, tanggal kedaluwarsa, dosis per liter, serta kelas bahaya (warna pita keselamatan di bawah botol).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart: Estimasi Proporsi Penggunaan -->
+                <div class="bg-white rounded-xl shadow-md p-6 border border-slate-100 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-lg font-bold text-emerald-900 mb-2 flex items-center">
+                            <span class="mr-2">📊</span> Estimasi Proporsi Penggunaan Pestisida di Lapangan
+                        </h3>
+                        <p class="text-sm text-slate-600 mb-4">
+                            Berdasarkan survei tren aplikasi tingkat petani, insektisida mendominasi porsi penggunaan namun sering kali tertukar dengan fungisida saat timbul gejala daun kuning.
+                        </p>
+                        <div class="chart-container">
+                            <canvas id="pesticideTypeChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="text-xs text-center text-slate-500 mt-3 italic">
+                        *Catatan: Salah memilih jenis bahan aktif berdampak pada 0% efektivitas pembasmian hama.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: 6 TEPAT PENGGUNAAN PESTISIDA -->
+        <section id="6tepat" class="scroll-mt-20">
+            <div class="border-b border-slate-200 pb-4 mb-8">
+                <div class="inline-block bg-amber-100 text-amber-900 text-xs font-bold px-3 py-1 rounded-md mb-2">
+                    MODUL INFOGRAFIS 2
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Aturan Emas: Prinsip 6 Tepat!</h2>
+                <p class="text-slate-600 mt-2">
+                    Aplikasi pestisida bukan sekadar menyemprotkan cairan racun. Agar efektif, efisien, dan ramah lingkungan, petani wajib menerapkan aturan 6 Tepat secara disiplin.
+                </p>
+            </div>
+
+            <!-- 6 Tepat Grid Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+                <!-- 1. Tepat Sasaran -->
+                <div class="bg-white rounded-xl p-5 shadow-md border-t-4 border-emerald-600 hover:shadow-lg transition">
+                    <div class="flex items-center space-x-3 mb-3">
+                        <span class="text-3xl bg-emerald-100 p-2 rounded-lg">🎯</span>
+                        <div>
+                            <span class="text-xs font-bold text-emerald-700 uppercase tracking-wide">Prinsip #1</span>
+                            <h3 class="text-lg font-bold text-slate-900">Tepat Sasaran</h3>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-600">
+                        Kenali jenis OPT (Organisme Pengganggu Tumbuhan). Pastikan pestisida yang dibeli spesifik untuk hama atau penyakit yang sedang menyerang tanaman.
+                    </p>
+                </div>
+
+                <!-- 2. Tepat Mutu -->
+                <div class="bg-white rounded-xl p-5 shadow-md border-t-4 border-teal-600 hover:shadow-lg transition">
+                    <div class="flex items-center space-x-3 mb-3">
+                        <span class="text-3xl bg-teal-100 p-2 rounded-lg">🔒</span>
+                        <div>
+                            <span class="text-xs font-bold text-teal-700 uppercase tracking-wide">Prinsip #2</span>
+                            <h3 class="text-lg font-bold text-slate-900">Tepat Mutu</h3>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-600">
+                        Gunakan produk resmi yang terdaftar di Kementerian Pertanian. Periksa segel kemasan, nomor pendaftaran, dan pastikan belum melewati tanggal kedaluwarsa.
+                    </p>
+                </div>
+
+                <!-- 3. Tepat Jenis -->
+                <div class="bg-white rounded-xl p-5 shadow-md border-t-4 border-cyan-600 hover:shadow-lg transition">
+                    <div class="flex items-center space-x-3 mb-3">
+                        <span class="text-3xl bg-cyan-100 p-2 rounded-lg">💧</span>
+                        <div>
+                            <span class="text-xs font-bold text-cyan-700 uppercase tracking-wide">Prinsip #3</span>
+                            <h3 class="text-lg font-bold text-slate-900">Tepat Jenis</h3>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-600">
+                        Pilih formulasi yang sesuai (cair/EC, bubuk/WP, butiran/GR) yang cocok dengan alat semprot serta sifat fisik tanaman target.
+                    </p>
+                </div>
+
+                <!-- 4. Tepat Waktu -->
+                <div class="bg-white rounded-xl p-5 shadow-md border-t-4 border-amber-500 hover:shadow-lg transition">
+                    <div class="flex items-center space-x-3 mb-3">
+                        <span class="text-3xl bg-amber-100 p-2 rounded-lg">⏱️</span>
+                        <div>
+                            <span class="text-xs font-bold text-amber-700 uppercase tracking-wide">Prinsip #4</span>
+                            <h3 class="text-lg font-bold text-slate-900">Tepat Waktu</h3>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-600">
+                        Semprot pada pagi hari (06.00–09.00) atau sore hari (15.00–18.00). Hindari terik matahari tinggi, angin kencang, atau cuaca mendung menjelang hujan.
+                    </p>
+                </div>
+
+                <!-- 5. Tepat Dosis -->
+                <div class="bg-white rounded-xl p-5 shadow-md border-t-4 border-orange-500 hover:shadow-lg transition">
+                    <div class="flex items-center space-x-3 mb-3">
+                        <span class="text-3xl bg-orange-100 p-2 rounded-lg">📏</span>
+                        <div>
+                            <span class="text-xs font-bold text-orange-700 uppercase tracking-wide">Prinsip #5</span>
+                            <h3 class="text-lg font-bold text-slate-900">Tepat Dosis</h3>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-600">
+                        Gunakan takaran presisi sesuai petunjuk label. Dosis terlalu tinggi memicu hama kebal & merusak tanaman; dosis rendah membuat hama tidak mati.
+                    </p>
+                </div>
+
+                <!-- 6. Tepat Cara -->
+                <div class="bg-white rounded-xl p-5 shadow-md border-t-4 border-red-500 hover:shadow-lg transition">
+                    <div class="flex items-center space-x-3 mb-3">
+                        <span class="text-3xl bg-red-100 p-2 rounded-lg">🚿</span>
+                        <div>
+                            <span class="text-xs font-bold text-red-700 uppercase tracking-wide">Prinsip #6</span>
+                            <h3 class="text-lg font-bold text-slate-900">Tepat Cara</h3>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-600">
+                        Gunakan sprayer tidak bocor, atur nozzle menjadi kabut (fine spray), dan arahkan ke lokasi pemukiman hama (misal: bagian bawah daun).
+                    </p>
+                </div>
+            </div>
+
+            <!-- Comparison Chart Section -->
+            <div class="bg-white rounded-xl shadow-md p-6 border border-slate-100">
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Perbandingan Dampak: Mengikuti 6 Tepat vs Asal Semprot</h3>
+                    <p class="text-sm text-slate-600">
+                        Grafik di bawah ini menggambarkan perbedaan signifikan pada performa biaya, ketahanan hama, serta keberhasilan panen antara petani yang menerapkan 6 Tepat dan yang menyemprot secara serampangan.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
+                    <div class="lg:col-span-2">
+                        <div class="chart-container">
+                            <canvas id="comparisonChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4">
+                        <h4 class="font-bold text-slate-800 text-sm uppercase tracking-wide border-b border-slate-200 pb-2">Kesimpulan Analisis</h4>
+                        <div class="space-y-3 text-xs">
+                            <div class="flex items-start space-x-2">
+                                <span class="text-emerald-600 font-bold text-base">✓</span>
+                                <p><strong class="text-slate-800">Efisiensi Biaya:</strong> Penerapan 6 Tepat menekan pemborosan pestisida hingga 35% per musim tanam.</p>
+                            </div>
+                            <div class="flex items-start space-x-2">
+                                <span class="text-red-500 font-bold text-base">✕</span>
+                                <p><strong class="text-slate-800">Risiko Kebal (Resistensi):</strong> Menyemprot berlebihan memicu kekebalan hama 4x lebih cepat.</p>
+                            </div>
+                            <div class="flex items-start space-x-2">
+                                <span class="text-emerald-600 font-bold text-base">✓</span>
+                                <p><strong class="text-slate-800">Kualitas Panen:</strong> Bebas dari residu berlebihan sehingga harga jual produk pertanian lebih tinggi.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: KESELAMATAN & APD -->
+        <section id="keselamatan" class="scroll-mt-20">
+            <div class="border-b border-slate-200 pb-4 mb-8">
+                <div class="inline-block bg-red-100 text-red-800 text-xs font-bold px-3 py-1 rounded-md mb-2">
+                    MODUL INFOGRAFIS 3
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Tameng Diri! Kesehatan & Keselamatan Kerja</h2>
+                <p class="text-slate-600 mt-2">
+                    Pestisida adalah bahan beracun yang dapat terserap ke dalam tubuh manusia melalui berbagai jalur. Perlindungan diri adalah harga mati yang tidak boleh ditawar saat menangani bahan kimia.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+                <!-- Visual Interactive APD Inspector -->
+                <div class="bg-white rounded-xl shadow-md p-6 border border-slate-100">
+                    <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center">
+                        <span class="mr-2">🛡️</span> Perlengkapan APD Wajib (Baju Perang Petani)
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-6">
+                        Hover atau tap pada tiap komponen APD di bawah ini untuk melihat fungsinya dalam menahan masuknya racun pestisida:
+                    </p>
+
+                    <div class="space-y-3">
+                        <div class="p-3 rounded-lg border border-slate-200 bg-slate-50 hover:bg-emerald-50 hover:border-emerald-500 transition cursor-pointer">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-sm text-slate-800">1. Topi Wide-Brim / Pelindung Kepala</span>
+                                <span class="text-xs font-semibold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">Wajib</span>
+                            </div>
+                            <p class="text-xs text-slate-600 mt-1">Mencegah percikan racun mengenai kulit kepala dan rambut saat menyemprot posisi tinggi.</p>
+                        </div>
+
+                        <div class="p-3 rounded-lg border border-slate-200 bg-slate-50 hover:bg-emerald-50 hover:border-emerald-500 transition cursor-pointer">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-sm text-slate-800">2. Kacamata Goggles Klir</span>
+                                <span class="text-xs font-semibold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">Wajib</span>
+                            </div>
+                            <p class="text-xs text-slate-600 mt-1">Melindungi mata dari droplet aerosol dan kabut semprotan berpendar.</p>
+                        </div>
+
+                        <div class="p-3 rounded-lg border border-slate-200 bg-slate-50 hover:bg-emerald-50 hover:border-emerald-500 transition cursor-pointer">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-sm text-slate-800">3. Masker Respirator / N95</span>
+                                <span class="text-xs font-semibold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">Sangat Vital</span>
+                            </div>
+                            <p class="text-xs text-slate-600 mt-1">Mencegah uap racun dan gas mikro terhirup langsung ke paru-paru.</p>
+                        </div>
+
+                        <div class="p-3 rounded-lg border border-slate-200 bg-slate-50 hover:bg-emerald-50 hover:border-emerald-500 transition cursor-pointer">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-sm text-slate-800">4. Baju & Celana Lengan Panjang</span>
+                                <span class="text-xs font-semibold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">Wajib</span>
+                            </div>
+                            <p class="text-xs text-slate-600 mt-1">Menutup rapat permukaan kulit agar tidak berkontak langsung dengan embun semprotan.</p>
+                        </div>
+
+                        <div class="p-3 rounded-lg border border-slate-200 bg-slate-50 hover:bg-emerald-50 hover:border-emerald-500 transition cursor-pointer">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-sm text-slate-800">5. Sarung Tangan Karet Nitril</span>
+                                <span class="text-xs font-semibold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">Sangat Vital</span>
+                            </div>
+                            <p class="text-xs text-slate-600 mt-1">Tangan adalah media kontak nomor 1 saat mencampur racun pekat!</p>
+                        </div>
+
+                        <div class="p-3 rounded-lg border border-slate-200 bg-slate-50 hover:bg-emerald-50 hover:border-emerald-500 transition cursor-pointer">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-sm text-slate-800">6. Sepatu Boot Karet Tinggi</span>
+                                <span class="text-xs font-semibold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">Wajib</span>
+                            </div>
+                            <p class="text-xs text-slate-600 mt-1">Melindungi kaki dari tumpahan racun di tanah basah atau rumput berembun pestisida.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exposure Route Chart & Post-Spraying Rules -->
+                <div class="space-y-6">
+                    <!-- Chart: Jalur Paparan Racun -->
+                    <div class="bg-white rounded-xl shadow-md p-6 border border-slate-100">
+                        <h3 class="text-lg font-bold text-slate-900 mb-2 flex items-center">
+                            <span class="mr-2">⚠️</span> Distribusi Jalur Paparan Racun ke Tubuh
+                        </h3>
+                        <p class="text-xs text-slate-600 mb-4">
+                            Studi menunjukkan bahwa penyerapan racun pestisida paling dominan terjadi melalui pori-pori kulit (dermal), diikuti oleh pernapasan.
+                        </p>
+                        <div class="chart-container">
+                            <canvas id="exposureChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Post Spraying Protocol Card -->
+                    <div class="bg-gradient-to-br from-slate-900 to-emerald-950 text-white p-6 rounded-xl shadow-md">
+                        <h4 class="font-bold text-amber-400 text-base mb-3 flex items-center">
+                            <span class="mr-2">🧼</span> Prosedur Wajib Setelah Penyemprotan
+                        </h4>
+                        <ul class="space-y-2 text-xs text-slate-200">
+                            <li class="flex items-start">
+                                <span class="text-amber-400 font-bold mr-2">1.</span>
+                                <span><strong>Mandi Segera:</strong> Mandi dengan sabun dan keramas rambut hingga bersih maksimal 30 menit setelah selesai menyemprot.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-400 font-bold mr-2">2.</span>
+                                <span><strong>Cuci Terpisah:</strong> Jangan pernah mencuci pakaian kerja penyemprotan bersamaan dengan pakaian keluarga atau bayi!</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-400 font-bold mr-2">3.</span>
+                                <span><strong>Sterilisasi Alat:</strong> Bilas tangki semprot dengan air bersih di lokasi penampungan limbah khusus, bukan di sungai.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-400 font-bold mr-2">4.</span>
+                                <span><strong>Simpan Terkunci:</strong> Simpan sisa pestisida dalam wadah asli di gudang terkunci, jauh dari bahan makanan & jangkauan anak.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: KALKULATOR DOSIS INTERAKTIF -->
+        <section id="kalkulator-dosis" class="scroll-mt-20">
+            <div class="border-b border-slate-200 pb-4 mb-8">
+                <div class="inline-block bg-teal-100 text-teal-800 text-xs font-bold px-3 py-1 rounded-md mb-2">
+                    ALAT BANTU LAPANGAN
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Kalkulator Dosis & Volume Semprot</h2>
+                <p class="text-slate-600 mt-2">
+                    Hitung dengan tepat kebutuhan pestisida per tangki semprot untuk menghindari pemborosan biaya dan risiko kebal hama.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6 sm:p-8 border border-slate-100 max-w-4xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <h3 class="font-bold text-slate-900 text-base border-b pb-2">Input Parameter Penyemprotan</h3>
+                        
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Kapasitas Tangki Semprot (Liter)</label>
+                            <input type="number" id="tankCapacity" value="16" min="1" max="50" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none" oninput="calculateDosage()">
+                            <span class="text-[10px] text-slate-500">Standar tangki gendong: 14 - 16 Liter</span>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Dosis Anjuran Label (ml per Liter Air)</label>
+                            <input type="number" id="labelDosage" value="2" step="0.1" min="0.1" max="20" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none" oninput="calculateDosage()">
+                            <span class="text-[10px] text-slate-500">Lihat angka petunjuk di label botol (misal: 1.5 - 2 ml/L)</span>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Luas Lahan yang Akan Disemprot (m²)</label>
+                            <input type="number" id="landArea" value="1000" step="100" min="100" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none" oninput="calculateDosage()">
+                            <span class="text-[10px] text-slate-500">1 Hektar = 10,000 m²</span>
+                        </div>
+                    </div>
+
+                    <!-- Output Result Card -->
+                    <div class="bg-emerald-900 text-white p-6 rounded-xl flex flex-col justify-between">
+                        <div>
+                            <h4 class="text-emerald-300 font-bold text-xs uppercase tracking-wider mb-4">Hasil Perhitungan Presisi</h4>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="text-xs text-emerald-200">Kebutuhan Pestisida Per Tangki:</div>
+                                    <div id="resPerTank" class="text-3xl font-extrabold text-amber-400">32 ml</div>
+                                    <div class="text-[11px] text-emerald-300">Gunakan tutup takar bergaris presisi!</div>
+                                </div>
+
+                                <div class="pt-3 border-t border-emerald-800">
+                                    <div class="text-xs text-emerald-200">Estimasi Kebutuhan Total Pestisida (Lahan <span id="resArea">1000</span> m²):</div>
+                                    <div id="resTotalPest" class="text-xl font-bold text-white">~ 160 ml</div>
+                                    <div class="text-[11px] text-emerald-300">Estimasi volume air total: <span id="resTotalWater">80</span> Liter (<span id="resTotalTanks">5</span> Tangki)</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 bg-emerald-800/80 p-3 rounded-lg border border-emerald-700 text-xs text-emerald-100">
+                            <strong>Pengingat Hemat:</strong> Menakar sesuai petunjuk label mencegah pembuangan bahan aktif berlebih yang bernilai ratusan ribu rupiah.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 text-xs py-10 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-3">
+            <div class="flex justify-center items-center space-x-2 text-white font-bold text-lg">
+                <span>🌾</span>
+                <span>EduPestisida & PHT Indonesia</span>
+            </div>
+            <p class="max-w-2xl mx-auto text-slate-400">
+                Media edukasi interaktif panduan penggunaan pestisida secara bijak, kalkulasi luas & intensitas serangan OPT / DPI. Dipersembahkan untuk kemajuan dan kesehatan petani Indonesia.
+            </p>
+            <div class="pt-4 text-slate-400">
+                &copy; 2026 EduPestisida. Selalu Utamakan Keselamatan Kerja & Kelestarian Lingkungan.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Charts & Interaction Scripts -->
+    <script>
+        // Global chart instances
+        let sampleChartInstance = null;
+
+        // Utility Function for Chart Label Wrapping (> 16 chars)
+        function wrapLabel(str, maxLen = 16) {
+            if (typeof str !== 'string') return str;
+            if (str.length <= maxLen) return str;
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = '';
+            words.forEach(w => {
+                if ((currentLine + ' ' + w).trim().length > maxLen) {
+                    if (currentLine) lines.push(currentLine.trim());
+                    currentLine = w;
+                } else {
+                    currentLine += (currentLine ? ' ' : '') + w;
+                }
+            });
+            if (currentLine) lines.push(currentLine.trim());
+            return lines;
+        }
+
+        // Common Tooltip Title Callback for Chart.js
+        const commonTooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        // Data & Details for Section 1 Interactive Cards
+        const pesticideDetails = {
+            insektisida: {
+                title: '🐛 Insektisida (Pengendali Serangga)',
+                desc: 'Formulasi khusus untuk mengendalikan hama golongan serangga seperti ulat grayak, kutu daun, wereng hijau, dan penggerek batang.',
+                targets: 'Ulat, Kutu, Wereng, Thrips',
+                warning: 'Jangan dicampur fungisida sembarangan!'
+            },
+            fungisida: {
+                title: '🍄 Fungisida (Pengendali Jamur / Cendawan)',
+                desc: 'Bahan kimia pembunuh atau penghambat pertumbuhan jamur mikro patogen penyebab bercak daun, karat daun, busuk buah, dan hawar daun.',
+                targets: 'Bercak Daun, Busuk Buah, Antraknosa',
+                warning: 'Gunakan saat kelembapan tinggi / curah hujan tinggi.'
+            },
+            herbisida: {
+                title: '🌿 Herbisida (Pengendali Gulma / Rumput Wild)',
+                desc: 'Bahan kimia pembasmi tumbuhan pengganggu atau gulma penyerap nutrisi tanah (seperti rumput teki, gulma daun lebar).',
+                targets: 'Rumput Teki, Gulma Daun Lebar',
+                warning: 'Semprot dekat tanah, hindari kena daun tanaman utama!'
+            },
+            bakterisida: {
+                title: '🧫 Bakterisida (Pengendali Bakteri)',
+                desc: 'Bahan kimia pembunuh bakteri patogen penyebab layu bakteri, layu pembuluh, dan layu bakteri ralstonia.',
+                targets: 'Layu Bakteri, Layu Ralstonia',
+                warning: 'Beda jauh dengan fungisida! Identifikasi gejala dulu.'
+            }
+        };
+
+        function showPesticideDetail(key) {
+            document.querySelectorAll('.pest-btn').forEach(btn => {
+                btn.classList.remove('border-emerald-600', 'bg-emerald-50', 'text-emerald-900');
+                btn.classList.add('border-slate-200', 'bg-white', 'text-slate-700');
+            });
+
+            const activeBtn = document.getElementById(`btn-${key}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('border-slate-200', 'bg-white', 'text-slate-700');
+                activeBtn.classList.add('border-emerald-600', 'bg-emerald-50', 'text-emerald-900');
+            }
+
+            const data = pesticideDetails[key];
+            if (data) {
+                document.getElementById('detail-title').innerText = data.title;
+                document.getElementById('detail-desc').innerText = data.desc;
+                const container = document.getElementById('pesticide-detail-box');
+                container.querySelector('span:nth-child(1)').innerText = 'Wujud Sasaran: ' + data.targets;
+                container.querySelector('span:nth-child(2)').innerText = 'Tindakan: ' + data.warning;
+            }
+        }
+
+        // TAB Switcher for Section 5 (OPT / DPI Calculators)
+        function switchOptTab(tabKey) {
+            ['nonmutlak', 'mutlak', 'luas'].forEach(t => {
+                const content = document.getElementById(`tab-content-${t}`);
+                const btn = document.getElementById(`tab-btn-${t}`);
+                if (t === tabKey) {
+                    content.classList.remove('hidden');
+                    btn.classList.remove('bg-white', 'border', 'border-slate-300', 'text-slate-700', 'hover:bg-slate-100');
+                    btn.classList.add('bg-emerald-700', 'text-white', 'shadow-sm');
+                } else {
+                    content.classList.add('hidden');
+                    btn.classList.remove('bg-emerald-700', 'text-white', 'shadow-sm');
+                    btn.classList.add('bg-white', 'border', 'border-slate-300', 'text-slate-700', 'hover:bg-slate-100');
+                }
+            });
+        }
+
+        // CALCULATOR 1: Non-Mutlak (Berjenjang)
+        function calculateNonMutlak() {
+            const s0 = parseFloat(document.getElementById('scale0').value) || 0;
+            const s1 = parseFloat(document.getElementById('scale1').value) || 0;
+            const s2 = parseFloat(document.getElementById('scale2').value) || 0;
+            const s3 = parseFloat(document.getElementById('scale3').value) || 0;
+            const s4 = parseFloat(document.getElementById('scale4').value) || 0;
+            const s5 = parseFloat(document.getElementById('scale5').value) || 0;
+
+            const totalN = s0 + s1 + s2 + s3 + s4 + s5;
+            if (totalN === 0) {
+                document.getElementById('nonmutlak-result').innerText = '0.0%';
+                return;
+            }
+
+            // Formula: I = sum(n_i * v_i) / (N * V) * 100
+            // Scale values v_i: 0=0, 1=1, 2=2, 3=3, 4=4, 5=5. Max scale V = 5.
+            const sumNV = (s0 * 0) + (s1 * 1) + (s2 * 2) + (s3 * 3) + (s4 * 4) + (s5 * 5);
+            const intensity = (sumNV / (totalN * 5)) * 100;
+
+            document.getElementById('nonmutlak-result').innerText = intensity.toFixed(1) + '%';
+            document.getElementById('nonmutlak-total-samples').innerText = totalN + ' Rumpun';
+
+            const badge = document.getElementById('nonmutlak-badge');
+            const desc = document.getElementById('nonmutlak-desc');
+
+            if (intensity <= 25) {
+                badge.innerText = 'RINGAN';
+                badge.className = 'px-2 py-1 text-xs font-bold rounded bg-emerald-600 text-white';
+                desc.innerText = 'Tingkat kerusakan di bawah 25%. Belum memerlukan penyemprotan kimiawi masif. Terapkan pengamatan mingguan & pelepasan musuh alami.';
+            } else if (intensity <= 50) {
+                badge.innerText = 'SEDANG';
+                badge.className = 'px-2 py-1 text-xs font-bold rounded bg-amber-500 text-slate-900';
+                desc.innerText = 'Kerusakan sedang (25-50%). Populasi hama mendekati Ambang Ekonomi. Siapkan agens hayati atau tingkatkan frekuensi monitoring!';
+            } else if (intensity <= 85) {
+                badge.innerText = 'BERAT';
+                badge.className = 'px-2 py-1 text-xs font-bold rounded bg-orange-600 text-white';
+                desc.innerText = 'Kerusakan berat (>50-85%). Segera lakukan tindakan pengendalian spesifik sesuai prinsip 6 tepat untuk menyelamatkan panen.';
+            } else {
+                badge.innerText = 'PUSO';
+                badge.className = 'px-2 py-1 text-xs font-bold rounded bg-red-600 text-white';
+                desc.innerText = 'Kerusakan sangat kritis (>85%). Potensi gagal panen total. Evaluasi penggantian varietas tahan atau isolasi total.';
+            }
+
+            // Update sample distribution chart
+            if (sampleChartInstance) {
+                sampleChartInstance.data.datasets[0].data = [s0, s1, s2, s3, s4, s5];
+                sampleChartInstance.update();
+            }
+        }
+
+        // CALCULATOR 2: Mutlak
+        function calculateMutlak() {
+            const a = parseFloat(document.getElementById('mutlak-a').value) || 0;
+            const N = parseFloat(document.getElementById('mutlak-N').value) || 1;
+
+            const intensity = (a / N) * 100;
+            const healthyCount = Math.max(0, N - a);
+            const healthyPercent = (healthyCount / N) * 100;
+
+            document.getElementById('mutlak-result').innerText = intensity.toFixed(1) + '%';
+            document.getElementById('mutlak-healthy').innerText = `${healthyCount} dari ${N} Tanaman (${healthyPercent.toFixed(0)}%)`;
+
+            const badge = document.getElementById('mutlak-badge');
+            const desc = document.getElementById('mutlak-desc');
+
+            if (intensity <= 25) {
+                badge.innerText = 'RINGAN';
+                badge.className = 'px-2 py-1 text-xs font-bold rounded bg-emerald-600 text-white';
+                desc.innerText = 'Tingkat kerusakan mutlak tergolong ringan. Pantau terus perkembangan populasi hama.';
+            } else if (intensity <= 50) {
+                badge.innerText = 'SEDANG';
+                badge.className = 'px-2 py-1 text-xs font-bold rounded bg-amber-500 text-slate-900';
+                desc.innerText = 'Kerusakan mutlak sedang. Periksa bagian jaringan utama tanaman dan bersihkan sisa tanaman mati.';
+            } else if (intensity <= 85) {
+                badge.innerText = 'BERAT';
+                badge.className = 'px-2 py-1 text-xs font-bold rounded bg-orange-600 text-white';
+                desc.innerText = 'Kerusakan mutlak tinggi. Diperlukan penanganan sanitasi dan penyemprotan terfokus.';
+            } else {
+                badge.innerText = 'PUSO';
+                badge.className = 'px-2 py-1 text-xs font-bold rounded bg-red-600 text-white';
+                desc.innerText = 'Tingkat kerusakan mutlak >85%. Kategori Puso (Mati Total).';
+            }
+        }
+
+        // CALCULATOR 3: Luas Serangan (LKS/LTS)
+        function calculateLuas() {
+            const areaTotal = parseFloat(document.getElementById('area-total').value) || 1;
+            const ringan = parseFloat(document.getElementById('area-ringan').value) || 0;
+            const sedang = parseFloat(document.getElementById('area-sedang').value) || 0;
+            const berat = parseFloat(document.getElementById('area-berat').value) || 0;
+            const puso = parseFloat(document.getElementById('area-puso').value) || 0;
+
+            const lksTotal = ringan + sedang + berat + puso;
+            const lksPercent = (lksTotal / areaTotal) * 100;
+            const areaFree = Math.max(0, areaTotal - lksTotal);
+
+            document.getElementById('res-lks-total').innerText = lksTotal.toFixed(1) + ' Ha';
+            document.getElementById('res-lks-percent').innerText = lksPercent.toFixed(1) + '%';
+            document.getElementById('res-lks-free').innerText = areaFree.toFixed(1) + ' Ha';
+            
+            const adviceEl = document.getElementById('res-lks-advice');
+            if (lksPercent < 20) {
+                adviceEl.innerText = `Kondisi aman. Lindungi ${areaFree.toFixed(1)} Ha lahan bebas dengan sanitasi rutin & musuh alami.`;
+                adviceEl.className = 'text-emerald-300 font-semibold';
+            } else if (lksPercent < 50) {
+                adviceEl.innerText = `Waspada persebaran! Isolasi ${sedang + berat} Ha lokasi serangan sedang/berat agar tidak menjangkiti lahan sehat.`;
+                adviceEl.className = 'text-amber-300 font-semibold';
+            } else {
+                adviceEl.innerText = `Peringatan darurat! Lebih dari setengah area hamparan (${lksPercent.toFixed(0)}%) terserang. Lakukan gerakan pengendalian serentak!`;
+                adviceEl.className = 'text-red-300 font-semibold';
+            }
+        }
+
+        // Initialize All Charts on Load
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // Chart 1: Donut Chart - Jenis Pestisida
+            const ctxType = document.getElementById('pesticideTypeChart').getContext('2d');
+            const rawLabelsType = [
+                'Insektisida (Serangga)',
+                'Fungisida (Jamur Patogen)',
+                'Herbisida (Gulma & Rumput)',
+                'Bakterisida & Lainnya'
+            ];
+            new Chart(ctxType, {
+                type: 'doughnut',
+                data: {
+                    labels: rawLabelsType.map(l => wrapLabel(l, 16)),
+                    datasets: [{
+                        data: [45, 25, 20, 10],
+                        backgroundColor: ['#10b981', '#0d9488', '#f59e0b', '#64748b'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12 } },
+                        tooltip: commonTooltipConfig
+                    }
+                }
+            });
+
+            // Chart 2: Grouped Bar Chart - 6 Tepat vs Asal Semprot
+            const ctxComp = document.getElementById('comparisonChart').getContext('2d');
+            const rawLabelsComp = [
+                'Efisiensi Biaya Pembelian',
+                'Tingkat Keberhasilan Basmi Hama',
+                'Pencegahan Kekebalan Hama',
+                'Keselamatan Residu Panen'
+            ];
+            new Chart(ctxComp, {
+                type: 'bar',
+                data: {
+                    labels: rawLabelsComp.map(l => wrapLabel(l, 16)),
+                    datasets: [
+                        { label: 'Penerapan 6 Tepat', data: [88, 92, 85, 95], backgroundColor: '#10b981', borderRadius: 6 },
+                        { label: 'Asal Semprot (Sembarangan)', data: [35, 40, 20, 30], backgroundColor: '#ef4444', borderRadius: 6 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true, max: 100, ticks: { callback: v => v + '%' } } },
+                    plugins: { legend: { position: 'top', labels: { font: { size: 12 } } }, tooltip: commonTooltipConfig }
+                }
+            });
+
+            // Chart 3: Horizontal Bar Chart - Jalur Paparan Racun
+            const ctxExp = document.getElementById('exposureChart').getContext('2d');
+            const rawLabelsExp = [
+                'Kulit & Pori-pori (Dermal)',
+                'Pernapasan (Inhalasi Uap)',
+                'Mata (Percikan Fine Spray)',
+                'Pencernaan (Termakan)'
+            ];
+            new Chart(ctxExp, {
+                type: 'bar',
+                data: {
+                    labels: rawLabelsExp.map(l => wrapLabel(l, 16)),
+                    datasets: [{
+                        label: 'Persentase Risiko Paparan Racun (%)',
+                        data: [75, 15, 7, 3],
+                        backgroundColor: ['#ef4444', '#f97316', '#f59e0b', '#64748b'],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { x: { beginAtZero: true, max: 100, ticks: { callback: v => v + '%' } } },
+                    plugins: { legend: { display: false }, tooltip: commonTooltipConfig }
+                }
+            });
+
+            // Chart 4: OPT Sample Distribution Bar Chart
+            const ctxSample = document.getElementById('optSampleChart').getContext('2d');
+            const sampleLabels = [
+                'Skala 0 (Sehat 0%)',
+                'Skala 1 (1-20%)',
+                'Skala 2 (21-40%)',
+                'Skala 3 (41-60%)',
+                'Skala 4 (61-80%)',
+                'Skala 5 (>80%)'
+            ];
+            sampleChartInstance = new Chart(ctxSample, {
+                type: 'bar',
+                data: {
+                    labels: sampleLabels.map(l => wrapLabel(l, 16)),
+                    datasets: [{
+                        label: 'Jumlah Rumpun Sampel',
+                        data: [20, 15, 8, 4, 2, 1],
+                        backgroundColor: ['#10b981', '#34d399', '#fbbf24', '#f97316', '#ea580c', '#ef4444'],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true, ticks: { precision: 0 } } },
+                    plugins: { legend: { display: false }, tooltip: commonTooltipConfig }
+                }
+            });
+
+            // Initialize calculations
+            calculateNonMutlak();
+            calculateMutlak();
+            calculateLuas();
+            calculateDosage();
+        });
+
+        // Interactive Dosage Calculator Logic (Module 4)
+        function calculateDosage() {
+            const tankCapacity = parseFloat(document.getElementById('tankCapacity').value) || 0;
+            const labelDosage = parseFloat(document.getElementById('labelDosage').value) || 0;
+            const landArea = parseFloat(document.getElementById('landArea').value) || 0;
+
+            const mlPerTank = tankCapacity * labelDosage;
+            const totalWaterLiters = landArea * 0.08;
+            const totalTanksNeeded = Math.ceil(totalWaterLiters / (tankCapacity || 1));
+            const totalPesticideMl = totalWaterLiters * labelDosage;
+
+            document.getElementById('resPerTank').innerText = mlPerTank.toFixed(1) + ' ml';
+            document.getElementById('resArea').innerText = landArea.toLocaleString('id-ID');
+            document.getElementById('resTotalPest').innerText = '~ ' + totalPesticideMl.toFixed(0) + ' ml (' + (totalPesticideMl/1000).toFixed(2) + ' L)';
+            document.getElementById('resTotalWater').innerText = totalWaterLiters.toFixed(0);
+            document.getElementById('resTotalTanks').innerText = totalTanksNeeded;
+        }
+    </script>
+</body>
+</html>
